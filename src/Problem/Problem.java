@@ -1,6 +1,7 @@
 package Problem;
 
 import Algorithms.Algorithm;
+import Builders.Graph;
 import Game.Board;
 
 import java.awt.*;
@@ -70,15 +71,19 @@ public class Problem {
 
     @Override
     public String toString() {
-        return "Problem{" +
+        return "\nProblem{" +
                 "algorithm=" + algorithm +
-                ", printTime=" + printTime +
-                ", toOpen=" + toOpen +
-                ", black=" + black +
-                ", red=" + red +
-                ", dimension=" + dimension +
-                ", board=" + board +
+                ",\n printTime=" + printTime +
+                ",\n toOpen=" + toOpen +
+                ",\n black=" + black +
+                ",\n red=" + red +
+                ",\n dimension=" + dimension +
+                ",\n board=" + board +
                 '}';
+    }
+
+    public Graph buildGraph(){
+        return null;
     }
 }
 

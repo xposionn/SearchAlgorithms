@@ -13,7 +13,7 @@ public class Main {
         Problem p = new Problem();
         BufferedReader bufferedReader;
         try {
-            bufferedReader = new BufferedReader(new FileReader("C:\\Users\\Timor\\IdeaProjects\\SearchAlgos\\Ex_1\\input.txt"));
+            bufferedReader = new BufferedReader(new FileReader("C:\\Users\\Timor\\IdeaProjects\\SearchAlgos\\Ex_1\\input2.txt"));
             String line = null;
             line = bufferedReader.readLine();
             int i = 0;
