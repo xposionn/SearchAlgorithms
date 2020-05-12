@@ -4,11 +4,16 @@ import java.awt.*;
 
 public class Tile {
 
-    private int _value;
+    private String _value;
     private Color _color;
 
-    public Tile(int value,Color color) {
+    public Tile(String value,Color color) {
         this._value = value;
         this._color = color;
+    }
+
+    @Override
+    public String toString() {
+        return _value;
     }
 }
