@@ -16,4 +16,17 @@ public class Tile {
     public String toString() {
         return _value;
     }
+
+    public String get_value() {
+        return _value;
+    }
+
+    public Color get_color() {
+        return _color;
+    }
+
+    public boolean equals(Tile oth) {
+        return _value.equals(oth.get_value()) && _color.equals(oth.get_color());
+    }
+
 }

@@ -5,11 +5,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Board {
-    Tile[][] _board;
+    Tile[][] board;
+    Dimension dim;
     private HashMap<Integer,Color> _colorHashMap;
 
     public Board(int rows,int columns){
-        _board = new Tile[rows][columns];
+        dim = new Dimension(columns,rows);
+        board = new Tile[rows][columns];
         _colorHashMap = new HashMap<>();
     }
     public void setColors(ArrayList<Integer> numbers,Color color){
@@ -23,7 +25,7 @@ public class Board {
             String strVal = parsed[i];
             Color tileColor = _colorHashMap.get(strVal);
             Tile tile = new Tile(strVal,tileColor);
-            _board[rowNumber][i] = tile;
+            board[rowNumber][i] = tile;
         }
     }
 
@@ -31,10 +33,10 @@ public class Board {
     public String toString() {
         String output="";
         output+= "Board:\n\t";
-        for(int i=0;i<_board.length;++i){
-            for(int j=0;j<_board[0].length;++j){
-                output+=""+_board[i][j];
-                if(j!=_board.length){
+        for(int i = 0; i< board.length; ++i){
+            for(int j = 0; j< board[0].length; ++j){
+                output+=""+ board[i][j];
+                if(j!= board.length){
                     output+=",";
                 }
             }
@@ -42,4 +44,20 @@ public class Board {
         }
         return output;
     }
+
+    public Tile getTile(int i,int j){
+        return board[i][j];
+    }
+
+
+    public boolean equals(Board board) {
+        for(int i=0;i<dim.getHeight();++i){
+            for(int j=0;j<dim.getWidth();++j){
+                if(!this.getTile(i,j).equals(board.getTile(i,j)))
+                    return false;
+            }
+        }
+        return true;
+    }
+
 }
