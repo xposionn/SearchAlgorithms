@@ -99,7 +99,7 @@ public class Problem {
                 ",\n red=" + red +
                 ",\n dimension=" + dimension +
                 ",\n _board=" + _board +
-                ",\n goal=" + _goal +
+                "\n goal=" + _goal +
                 '}';
     }
 
