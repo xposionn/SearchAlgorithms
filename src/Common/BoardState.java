@@ -19,6 +19,9 @@ public class BoardState {
     private boolean isMoved = false;
     private int paid = 0;
 
+    //for AStar
+    private boolean isOut = false;
+
     public BoardState(int rows, int columns) {
         paid = 0;
         movement = "";
@@ -197,5 +200,17 @@ public class BoardState {
 
     public int getPaid() {
         return paid;
+    }
+
+
+    //AStar Extention
+
+
+    public boolean isOut() {
+        return isOut;
+    }
+
+    public void isOut(boolean out) {
+        isOut = out;
     }
 }
