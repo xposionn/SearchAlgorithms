@@ -1,7 +1,6 @@
 package Common;
 
 import Algorithms.Algorithm;
-import Printers.Printer;
 import javafx.scene.paint.Color;
 
 import java.io.BufferedReader;
@@ -11,8 +10,8 @@ import java.util.HashMap;
 
 public class Problem {
     private Algorithm algorithm;
-    private boolean toOpen;
-    private boolean toPrintTime;
+    private boolean withOpen;
+    private boolean withTime;
     private HashMap<Color,Integer> colorPrices;
     private HashMap<Integer,Color> colorMap;
     private BoardState startBoard;
@@ -33,7 +32,7 @@ public class Problem {
             setAlgoFromName(bufferedReader.readLine());
             String line=null;
             setTime(bufferedReader.readLine());
-            setToOpen(bufferedReader.readLine());
+            setWithOpen(bufferedReader.readLine());
             setSizeOfBoard(bufferedReader.readLine());
             setBlackColors(bufferedReader.readLine());
             setRedColors(bufferedReader.readLine());
@@ -97,13 +96,13 @@ public class Problem {
         goalBoard = new BoardState(rows,columns);
     }
 
-    private void setToOpen(String readLine) {
-        this.toPrintTime = !readLine.equals("no open");
+    private void setWithOpen(String readLine) {
+        this.withOpen = !readLine.equals("no open");
     }
 
     private void setTime(String readLine) {
         //check if line is true or false;
-        this.toPrintTime= !readLine.equals("no time");
+        this.withTime = !readLine.equals("no time");
     }
 
     private void setAlgoFromName(String line) {
@@ -119,11 +118,11 @@ public class Problem {
         return goalBoard;
     }
 
-    public boolean isToOpen() {
-        return toOpen;
+    public boolean withOpen() {
+        return withOpen;
     }
 
-    public boolean isToPrintTime() {
-        return toPrintTime;
+    public boolean withTime() {
+        return withTime;
     }
 }

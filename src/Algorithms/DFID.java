@@ -5,9 +5,7 @@ import Common.Direction;
 import Common.Problem;
 import Printers.Printer;
 
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.concurrent.LinkedBlockingQueue;
 
 public class DFID implements Algorithm{
     private HashSet<BoardState> H;
@@ -37,7 +35,7 @@ public class DFID implements Algorithm{
     public String Limited_DFS(BoardState currentState, BoardState eState, int limit, HashSet H){
         if(currentState.equals(eState)){
             totalTime = (System.currentTimeMillis() - totalTime)/1000;
-            Printer.finishSolution(p,currentState,true,nodesExpanded,totalTime);
+            Printer.exportToOutput(p,currentState,true,nodesExpanded,totalTime);
             return "found";
         }else if(limit == 0){
             return "cut off";

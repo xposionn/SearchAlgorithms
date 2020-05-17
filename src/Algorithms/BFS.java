@@ -5,7 +5,6 @@ import Common.Direction;
 import Common.Problem;
 import Printers.Printer;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.concurrent.LinkedBlockingQueue;
 
@@ -38,6 +37,9 @@ public class BFS implements Algorithm {
         startTime = System.currentTimeMillis();
        while(!queue.isEmpty()){
             cState = queue.poll();
+            if(p.withOpen()){
+                System.out.println(cState);
+            }
             openList.remove(cState);
             closedList.add(cState);
            for (Direction direction:Direction.values()) {
@@ -60,7 +62,7 @@ public class BFS implements Algorithm {
        }
         endTime = System.currentTimeMillis();
         totalTime = (endTime - startTime)*1.0/1000;
-        Printer.finishSolution(p,cState,foundSolution,nodesExpanded,totalTime);
+        Printer.exportToOutput(p,cState,foundSolution,nodesExpanded,totalTime);
         }
     }
 

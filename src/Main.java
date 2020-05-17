@@ -8,8 +8,8 @@ public class Main {
 
     public static void main(String[] args) {
         Problem p = new Problem();
-        p.buildProblemFromFile("input.txt");
-        Algorithm dfid = new DFID(p);
+        p.buildProblemFromFile("input2.txt");
+        Algorithm dfid = new BFS(p);
         dfid.solve();
     }
 }
