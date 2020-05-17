@@ -1,5 +1,5 @@
 BFS
-no time
+with time
 no open
 3x4
 Black: 7,8,11,4
