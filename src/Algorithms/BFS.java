@@ -5,7 +5,6 @@ import Common.Direction;
 import Common.Problem;
 import Printers.Printer;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.concurrent.LinkedBlockingQueue;
 
@@ -14,7 +13,7 @@ public class BFS implements Algorithm {
     private BoardState sState, eState; //start and goal states
     private HashSet<BoardState> closedList,openList; //list of explored nodes
     private LinkedBlockingQueue<BoardState> queue; //list of nodes to explore
-    private long nodesExpanded = 1; //number of nodes explored first included
+    private int nodesExpanded = 1; //number of nodes explored first included
 
 
     public BFS(Problem p) {
@@ -38,6 +37,9 @@ public class BFS implements Algorithm {
         startTime = System.currentTimeMillis();
        while(!queue.isEmpty()){
             cState = queue.poll();
+            if(p.withOpen()){
+                System.out.println(cState);
+            }
             openList.remove(cState);
             closedList.add(cState);
            for (Direction direction:Direction.values()) {
@@ -60,17 +62,7 @@ public class BFS implements Algorithm {
        }
         endTime = System.currentTimeMillis();
         totalTime = (endTime - startTime)*1.0/1000;
-        if (!foundSolution) {
-            System.out.println("no path");
-            System.out.println("Num: "+nodesExpanded);
-        } else {
-            if (!p.isToOpen()) {
-                Printer.printSolution(cState);
-                System.out.println("Num: "+nodesExpanded);
-                Printer.printPrice(cState);
-                System.out.println(totalTime+ " seconds");
-            }
+        Printer.exportToOutput(p,cState,foundSolution,nodesExpanded,totalTime);
         }
     }
 
-}
