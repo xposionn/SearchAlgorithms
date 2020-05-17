@@ -17,8 +17,10 @@ public class BoardState {
     private HashMap<Integer, Color> colorMap;
     private String movement;
     private boolean isMoved = false;
+    private int paid = 0;
 
     public BoardState(int rows, int columns) {
+        paid = 0;
         movement = "";
         board = new int[rows][columns];
         parent = null;
@@ -35,10 +37,10 @@ public class BoardState {
         this.spacePositionRow = b.spacePositionRow;
         this.depth = b.depth;
         this.parent = b;
-        this.moveSpace(d);
         this.depth++;
         this.colorMap = b.colorMap;
         this.colorPrices = b.colorPrices;
+        this.moveSpace(d);
 
     }
 
@@ -79,48 +81,71 @@ public class BoardState {
             case DOWN:
                 if (spacePositionRow > 0){
                     int value = board[spacePositionRow-1][spacePositionColumn];
-                    movement = value+"D";
-                    board[spacePositionRow][spacePositionColumn] = board[spacePositionRow-1][spacePositionColumn];
-                    spacePositionRow--;
-                    board[spacePositionRow][spacePositionColumn] = 0;
-                    this.isMoved = true;
+                    if(isAllowedToBeMoved(value)) {
+
+                        movement = value + "D";
+                        board[spacePositionRow][spacePositionColumn] = board[spacePositionRow - 1][spacePositionColumn];
+                        spacePositionRow--;
+                        board[spacePositionRow][spacePositionColumn] = 0;
+                        this.isMoved = true;
+                        int cost = (colorMap.get(value) == null) ? 1 : colorPrices.get(colorMap.get(value));
+                        paid += cost;
+                    }
                 }
                 break;
             case UP:
                 if (spacePositionRow < board.length-1){
                     int value = board[spacePositionRow+1][spacePositionColumn];
-                    movement = value+"U";
-                    board[spacePositionRow][spacePositionColumn] = board[spacePositionRow+1][spacePositionColumn];
-                    spacePositionRow++;
-                    board[spacePositionRow][spacePositionColumn] = 0;
-                    this.isMoved = true;
+                    if(isAllowedToBeMoved(value)) {
+                        movement = value + "U";
+                        board[spacePositionRow][spacePositionColumn] = board[spacePositionRow + 1][spacePositionColumn];
+                        spacePositionRow++;
+                        board[spacePositionRow][spacePositionColumn] = 0;
+                        this.isMoved = true;
+                        int cost = (colorMap.get(value) == null) ? 1 : colorPrices.get(colorMap.get(value));
+                        paid += cost;
+                    }
+
 
                 }
                 break;
             case RIGHT:
                 if (spacePositionColumn > 0){
-
                     int value = board[spacePositionRow][spacePositionColumn-1];
-                    movement = value+"R";
-                    board[spacePositionRow][spacePositionColumn] = board[spacePositionRow][spacePositionColumn-1];
-                    spacePositionColumn--;
-                    board[spacePositionRow][spacePositionColumn] = 0;
-                    this.isMoved = true;
+                    if(isAllowedToBeMoved(value)) {
+                        movement = value + "R";
+                        board[spacePositionRow][spacePositionColumn] = board[spacePositionRow][spacePositionColumn - 1];
+                        spacePositionColumn--;
+                        board[spacePositionRow][spacePositionColumn] = 0;
+                        this.isMoved = true;
+                        int cost = (colorMap.get(value) == null) ? 1 : colorPrices.get(colorMap.get(value));
+                        paid += cost;
+                    }
+
 
                 }
                 break;
             case LEFT:
                 if (spacePositionColumn < board[0].length-1){
                     int value = board[spacePositionRow][spacePositionColumn+1];
-                    movement = value+"L";
-                    board[spacePositionRow][spacePositionColumn] = board[spacePositionRow][spacePositionColumn+1];
-                    spacePositionColumn++;
-                    board[spacePositionRow][spacePositionColumn] = 0;
-                    this.isMoved = true;
+                    if(isAllowedToBeMoved(value)) {
 
+                        movement = value + "L";
+                        board[spacePositionRow][spacePositionColumn] = board[spacePositionRow][spacePositionColumn + 1];
+                        spacePositionColumn++;
+                        board[spacePositionRow][spacePositionColumn] = 0;
+                        this.isMoved = true;
+                        int cost = (colorMap.get(value) == null) ? 1 : colorPrices.get(colorMap.get(value));
+                        paid += cost;
+                    }
                 }
                 break;
         }
+    }
+
+    private boolean isAllowedToBeMoved(int value) {
+        Color color = colorMap.get(value);
+        return Color.BLACK != color;
     }
 
     public int getDepth() {
@@ -168,5 +193,9 @@ public class BoardState {
     @Override
     public String toString() {
         return Printer.printBoard(this);
+    }
+
+    public int getPaid() {
+        return paid;
     }
 }

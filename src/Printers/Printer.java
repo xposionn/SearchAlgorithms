@@ -30,4 +30,13 @@ public class Printer {
         }
         System.out.println(solution.substring(1,solution.length()-1));
     }
+
+    public static void printPrice(BoardState boardState){
+        int cost = 0;
+        while(boardState.getParent()!=null){
+            cost+=boardState.getPaid();
+            boardState = boardState.getParent();
+        }
+        System.out.println(cost);
+    }
 }

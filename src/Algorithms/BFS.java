@@ -34,8 +34,8 @@ public class BFS implements Algorithm {
     public void solve() {
         boolean foundSolution  = false;
         BoardState cState = sState;
-        long startTime, endTime, totalTime; //for time keeping
-        startTime = System.nanoTime();
+        double startTime, endTime, totalTime; //for time keeping
+        startTime = System.currentTimeMillis();
        while(!queue.isEmpty()){
             cState = queue.poll();
             openList.remove(cState);
@@ -58,16 +58,17 @@ public class BFS implements Algorithm {
            if(foundSolution)
                break;
        }
-        endTime = System.nanoTime();
-        totalTime = endTime - startTime;
-        if (cState == null) {
-            System.out.println("Could not find solution after expanding " + nodesExpanded + " nodes. Searched for " + totalTime * 1E-6 + "ms.");
+        endTime = System.currentTimeMillis();
+        totalTime = (endTime - startTime)*1.0/1000;
+        if (!foundSolution) {
+            System.out.println("no path");
+            System.out.println("Num: "+nodesExpanded);
         } else {
-            System.out.println("Solution found after expanding " + nodesExpanded + " nodes. Searched for " + totalTime * 1E-6 + "ms. Depth: " + cState.getDepth());
-            Printer.printSolution(cState);
-            for (BoardState board: openList) {
-                System.out.println(Printer.printBoard(board));
-
+            if (!p.isToOpen()) {
+                Printer.printSolution(cState);
+                System.out.println("Num: "+nodesExpanded);
+                Printer.printPrice(cState);
+                System.out.println(totalTime+ " seconds");
             }
         }
     }

@@ -45,11 +45,6 @@ public class Problem {
                 line = bufferedReader.readLine();
             }
             buildGoal();
-            System.out.println("Start board:");
-            Printer.printBoard(startBoard);
-            System.out.println("Goal board:");
-            Printer.printBoard(goalBoard);
-
             bufferedReader.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -122,5 +117,13 @@ public class Problem {
 
     public BoardState getGoalBoard() {
         return goalBoard;
+    }
+
+    public boolean isToOpen() {
+        return toOpen;
+    }
+
+    public boolean isToPrintTime() {
+        return toPrintTime;
     }
 }
