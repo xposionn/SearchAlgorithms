@@ -4,17 +4,22 @@ import Common.BoardState;
 
 public class Printer {
 
-    public static void printBoard(BoardState boardState){
+    public static String printBoard(BoardState boardState){
         int[][] board = boardState.getBoard();
+        String output = "";
         for(int[] row:board){
             for(int value:row){
                 String valueToPrint = ""+value;
-                if(value==0)
+                if(value==0) {
                     valueToPrint="_";
-                System.out.print(valueToPrint+(value==row[row.length-1]?"":","));
+                }
+                output+= valueToPrint+(value==row[row.length-1]?"":",");
             }
-            System.out.println();
+            output+="\n";
+
         }
+
+        return output;
     }
     public static void printSolution(BoardState boardState) {
         BoardState current = boardState;

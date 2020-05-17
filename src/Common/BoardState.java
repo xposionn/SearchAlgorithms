@@ -1,9 +1,11 @@
 package Common;
 
+import Printers.Printer;
 import javafx.scene.paint.Color;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Objects;
 
 public class BoardState {
     private int[][] board;
@@ -14,6 +16,7 @@ public class BoardState {
     private HashMap<Color, Integer> colorPrices;
     private HashMap<Integer, Color> colorMap;
     private String movement;
+    private boolean isMoved = false;
 
     public BoardState(int rows, int columns) {
         movement = "";
@@ -36,7 +39,9 @@ public class BoardState {
         this.depth++;
         this.colorMap = b.colorMap;
         this.colorPrices = b.colorPrices;
+
     }
+
 
 
     public void setRow(int i, String line) {
@@ -71,25 +76,28 @@ public class BoardState {
 
     public void moveSpace(Direction direction) {
         switch (direction) {
-            case UP:
+            case DOWN:
                 if (spacePositionRow > 0){
                     int value = board[spacePositionRow-1][spacePositionColumn];
                     movement = value+"D";
                     board[spacePositionRow][spacePositionColumn] = board[spacePositionRow-1][spacePositionColumn];
                     spacePositionRow--;
                     board[spacePositionRow][spacePositionColumn] = 0;
+                    this.isMoved = true;
                 }
                 break;
-            case DOWN:
+            case UP:
                 if (spacePositionRow < board.length-1){
                     int value = board[spacePositionRow+1][spacePositionColumn];
                     movement = value+"U";
                     board[spacePositionRow][spacePositionColumn] = board[spacePositionRow+1][spacePositionColumn];
                     spacePositionRow++;
                     board[spacePositionRow][spacePositionColumn] = 0;
+                    this.isMoved = true;
+
                 }
                 break;
-            case LEFT:
+            case RIGHT:
                 if (spacePositionColumn > 0){
 
                     int value = board[spacePositionRow][spacePositionColumn-1];
@@ -97,16 +105,19 @@ public class BoardState {
                     board[spacePositionRow][spacePositionColumn] = board[spacePositionRow][spacePositionColumn-1];
                     spacePositionColumn--;
                     board[spacePositionRow][spacePositionColumn] = 0;
+                    this.isMoved = true;
+
                 }
                 break;
-            case RIGHT:
+            case LEFT:
                 if (spacePositionColumn < board[0].length-1){
-
                     int value = board[spacePositionRow][spacePositionColumn+1];
                     movement = value+"L";
                     board[spacePositionRow][spacePositionColumn] = board[spacePositionRow][spacePositionColumn+1];
                     spacePositionColumn++;
                     board[spacePositionRow][spacePositionColumn] = 0;
+                    this.isMoved = true;
+
                 }
                 break;
         }
@@ -132,6 +143,11 @@ public class BoardState {
         return true;
     }
 
+    @Override
+    public int hashCode() {
+        return 1;
+    }
+
     public void setColors(HashMap<Color, Integer> colorPrices, HashMap<Integer, Color> colorMap) {
         this.colorMap = colorMap;
         this.colorPrices = colorPrices;
@@ -143,5 +159,14 @@ public class BoardState {
 
     public String getMovement(){
         return movement;
+    }
+
+    public boolean isMoved() {
+        return isMoved;
+    }
+
+    @Override
+    public String toString() {
+        return Printer.printBoard(this);
     }
 }

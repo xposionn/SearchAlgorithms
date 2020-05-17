@@ -1,7 +1,6 @@
 package Common;
 
 import Algorithms.Algorithm;
-import Algorithms.BFS;
 import Printers.Printer;
 import javafx.scene.paint.Color;
 
