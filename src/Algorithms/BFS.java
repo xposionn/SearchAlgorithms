@@ -14,7 +14,7 @@ public class BFS implements Algorithm {
     private BoardState sState, eState; //start and goal states
     private HashSet<BoardState> closedList,openList; //list of explored nodes
     private LinkedBlockingQueue<BoardState> queue; //list of nodes to explore
-    private long nodesExpanded = 1; //number of nodes explored first included
+    private int nodesExpanded = 1; //number of nodes explored first included
 
 
     public BFS(Problem p) {
@@ -60,17 +60,7 @@ public class BFS implements Algorithm {
        }
         endTime = System.currentTimeMillis();
         totalTime = (endTime - startTime)*1.0/1000;
-        if (!foundSolution) {
-            System.out.println("no path");
-            System.out.println("Num: "+nodesExpanded);
-        } else {
-            if (!p.isToOpen()) {
-                Printer.printSolution(cState);
-                System.out.println("Num: "+nodesExpanded);
-                Printer.printPrice(cState);
-                System.out.println(totalTime+ " seconds");
-            }
+        Printer.finishSolution(p,cState,foundSolution,nodesExpanded,totalTime);
         }
     }
 
-}

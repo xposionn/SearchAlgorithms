@@ -1,6 +1,7 @@
 package Printers;
 
 import Common.BoardState;
+import Common.Problem;
 
 public class Printer {
 
@@ -38,5 +39,20 @@ public class Printer {
             boardState = boardState.getParent();
         }
         System.out.println(cost);
+    }
+
+    public static void finishSolution(Problem p, BoardState finalState,boolean foundSolution,int nodesExpanded,double totalTime){
+        if(foundSolution){
+            if (!p.isToOpen()) {
+                Printer.printSolution(finalState);
+                System.out.println("Num: "+nodesExpanded);
+                Printer.printPrice(finalState);
+                System.out.println(totalTime+ " seconds");
+            }
+        }else{
+            System.out.println("no path");
+            System.out.println("Num: "+nodesExpanded);
+        }
+
     }
 }
