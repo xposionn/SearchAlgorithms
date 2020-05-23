@@ -29,7 +29,15 @@ public class IDAStar implements Algorithm{
         this.eState = p.getGoalBoard();
         this.heuristic = heuristic;
         this.t = heuristic.getH(sState);
-        L = new PriorityQueue<>(comparator);
+        L = new PriorityQueue<>((t1, t2) -> {
+            if(f(t1)>f(t2))
+                return 1;
+            if(f(t1)<f(t2)){
+                return -1;
+            }else{
+                return 0;
+            }
+        });
         H = new Hashtable<BoardState,BoardState>();
     }
 

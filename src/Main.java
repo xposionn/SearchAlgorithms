@@ -1,7 +1,4 @@
-import Algorithms.Algorithm;
-import Algorithms.BFS;
-import Algorithms.DFID;
-import Algorithms.IDAStar;
+import Algorithms.*;
 import Common.BoardState;
 import Common.Problem;
 import Heuristics.IHeuristic;
@@ -15,9 +12,8 @@ public class Main {
     public static void main(String[] args) {
         Problem p = new Problem();
         p.buildProblemFromFile("input.txt");
-        Comparator<BoardState> manhatthan = new Manhattan(p.getGoalBoard());
         IHeuristic heuristic = new Manhattan(p.getGoalBoard());
-        Algorithm dfid = new IDAStar(p,manhatthan,heuristic);
+        Algorithm dfid = new AStar(p,heuristic);
         dfid.solve();
     }
 }

@@ -12,7 +12,6 @@ public class Printer {
     private static final String OUTPUT_FILE_NAME = "output.txt";
 
 
-
     public static String printBoard(BoardState boardState) {
         int[][] board = boardState.getBoard();
         String output = "";
@@ -30,7 +29,6 @@ public class Printer {
     }
 
 
-
     public static void exportToOutput(Problem p, BoardState finalState, boolean foundSolution, int nodesExpanded, double totalTime) {
         try {
             FileWriter write = new FileWriter(OUTPUT_FILE_NAME);
@@ -39,20 +37,24 @@ public class Printer {
                 print_line.println(Printer.solutionToString(finalState));
                 print_line.println("Num: " + nodesExpanded);
                 print_line.println("Cost: " + finalState.getPaid());
-                if(p.withTime()) {
+                if (p.withTime()) {
                     print_line.println(totalTime + " seconds");
                 }
                 print_line.close();
             } else {
                 print_line.println("no path");
                 print_line.println("Num: " + nodesExpanded);
-                if(p.withTime()) {
+                if (p.withTime()) {
                     print_line.println(totalTime + " seconds");
                 }
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void exportToOutput(Problem p, BoardState finalState, int nodesExpanded, double totalTime) {
+        exportToOutput(p,finalState,true,nodesExpanded,totalTime);
     }
 
 

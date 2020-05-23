@@ -9,7 +9,7 @@ public class Manhattan implements Comparator<BoardState>,IHeuristic {
     public Manhattan(BoardState eState){
         this.eState=eState;
     }
-    @Override
+/*    @Override
     public int compare(BoardState s1, BoardState s2) {
         int dEstimate1 = 0;
         int dEstimate2 = 0;
@@ -24,6 +24,17 @@ public class Manhattan implements Comparator<BoardState>,IHeuristic {
             }
         }
         return Integer.compare(dEstimate1, dEstimate2);
+    }*/
+
+    @Override
+    public int compare(BoardState s1, BoardState s2) {
+            if(f(s1)>f(s2))
+                return -1;
+            if(f(s1)<f(s2)){
+                return 1;
+            }else{
+                return 0;
+            }
     }
 
     @Override
@@ -47,5 +58,9 @@ public class Manhattan implements Comparator<BoardState>,IHeuristic {
         }
         return h;
 
+    }
+
+    private int f(BoardState boardState){
+        return boardState.getPaid()+ getH(boardState);
     }
 }
