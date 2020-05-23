@@ -38,7 +38,7 @@ public class Printer {
             if (foundSolution) {
                 print_line.println(Printer.solutionToString(finalState));
                 print_line.println("Num: " + nodesExpanded);
-                print_line.println("Cost: " + Printer.getPrice(finalState));
+                print_line.println("Cost: " + finalState.getPaid());
                 if(p.withTime()) {
                     print_line.println(totalTime + " seconds");
                 }
@@ -65,13 +65,5 @@ public class Printer {
             current = current.getParent();
         }
         return solution.substring(1, solution.length() - 1);
-    }
-    public static int getPrice(BoardState boardState) {
-        int cost = 0;
-        while (boardState.getParent() != null) {
-            cost += boardState.getPaid();
-            boardState = boardState.getParent();
-        }
-        return cost;
     }
 }

@@ -1,11 +1,9 @@
 package Common;
 
 import Printers.Printer;
-import javafx.scene.paint.Color;
 
-import java.util.Arrays;
+import java.awt.*;
 import java.util.HashMap;
-import java.util.Objects;
 
 public class BoardState {
     private int[][] board;
@@ -41,6 +39,7 @@ public class BoardState {
         this.depth = b.depth;
         this.parent = b;
         this.depth++;
+        this.paid=b.paid;
         this.colorMap = b.colorMap;
         this.colorPrices = b.colorPrices;
         this.moveSpace(d);
