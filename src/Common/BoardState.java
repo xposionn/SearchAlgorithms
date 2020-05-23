@@ -3,7 +3,9 @@ package Common;
 import Printers.Printer;
 
 import java.awt.*;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.stream.Stream;
 
 public class BoardState {
     private int[][] board;
@@ -16,11 +18,15 @@ public class BoardState {
     private String movement;
     private boolean isMoved = false;
     private int paid = 0;
+    private int rows;
+    private int columns;
 
     //for AStar
     private boolean isOut = false;
 
     public BoardState(int rows, int columns) {
+        this.rows = rows;
+        this.columns = columns;
         paid = 0;
         movement = "";
         board = new int[rows][columns];
@@ -30,6 +36,8 @@ public class BoardState {
 
 
     public BoardState(BoardState b, Direction d) {
+        this.rows = b.rows;
+        this.columns = b.columns;
         this.board = b.board.clone();
         for (int y = 0; y < this.board.length; y++) {
             this.board[y] = b.board[y].clone();
@@ -211,5 +219,32 @@ public class BoardState {
 
     public void isOut(boolean out) {
         isOut = out;
+    }
+
+    public int getRows() {
+        return rows;
+    }
+
+    public int getColumns() {
+        return columns;
+    }
+
+    public int getH() {
+        int h = 0;
+        for(int i=0;i<rows;++i){
+            for(int j=0;j<columns;++j){
+                int value = board[i][j];
+                int cRow = value/columns;
+                int cColumn = value%columns;
+                if(cColumn==0){
+                    cColumn = columns-1;
+                    cRow--;
+                }else{
+                    cColumn--;
+                }
+                h+=Math.abs(i-cRow)+Math.abs(j-cColumn);
+            }
+        }
+        return h;
     }
 }
