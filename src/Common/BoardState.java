@@ -3,6 +3,7 @@ package Common;
 import Printers.Printer;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.stream.Stream;
@@ -247,4 +248,16 @@ public class BoardState {
         }
         return h;
     }
+
+    public ArrayList<BoardState> getAllowedChildrens(){
+        ArrayList<BoardState> allowedMoves = new ArrayList<>();
+        for(Direction direction:Direction.values()){
+            BoardState possibleChild = new BoardState(this,direction);
+            if(possibleChild.isMoved() && !possibleChild.equals(parent)){
+                allowedMoves.add(possibleChild);
+            }
+        }
+    return allowedMoves;
+    }
+
 }

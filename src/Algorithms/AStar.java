@@ -16,22 +16,24 @@ public class AStar implements Algorithm {
     private int nodesExpanded = 1; //number of nodes explored first included
     private double totalTime;
     private PriorityQueue<BoardState> L;
-    private Set<BoardState> H;
+    private HashMap<BoardState, BoardState> H, C;
     private int minF;
     private IHeuristic heuristic;
+    private Comparator<BoardState> comparator;
 
     public AStar(Problem p, IHeuristic heuristic) {
         this.heuristic = heuristic;
         L = new PriorityQueue<>((s1, s2) -> {
-            if (f(s1) > f(s2))
-                return -1;
-            if (f(s1) < f(s2)) {
+            if (heuristic.getH(s1) > heuristic.getH(s2))
                 return 1;
+            if (heuristic.getH(s1) < heuristic.getH(s2)) {
+                return -1;
             } else {
                 return 0;
             }
         });
-        H = new HashSet<>();
+        H = new HashMap<>();
+        C = new HashMap<>();
         sState = p.getStartBoard();
         eState = p.getGoalBoard();
         this.p = p;
@@ -45,27 +47,36 @@ public class AStar implements Algorithm {
         L.add(sState);
         while (!L.isEmpty()) {
             BoardState n = L.poll();
-            H.add(n);
+            H.remove(n);
             if (n.equals(eState)) {
                 endTime = System.currentTimeMillis();
                 totalTime = (endTime - startTime) * 1.0 / 1000;
                 Printer.exportToOutput(p, n, nodesExpanded, totalTime);
                 return;
             }
-            for (Direction direction : Direction.values()) {
-                BoardState x = new BoardState(n, direction);
-                if (x.isMoved()) {
-                    if(!H.contains(x) && !L.contains(x)){
-                        L.add(x);
-                    //ADD ELSE
-                    }
+            C.put(n, n);
+            for(BoardState x:n.getAllowedChildrens()){
+                nodesExpanded++;
+                if(!C.containsKey(x) && !L.contains(x)){
+                    L.add(x);
+                    H.put(x,x);
+                }else if(L.contains(x) && H.get(x).getPaid()>x.getPaid()){
+                    L.remove(x);
+                    L.add(x);
+                    H.put(x,x);
                 }
             }
         }
+        endTime = System.currentTimeMillis();
+        totalTime = (endTime - startTime) * 1.0 / 1000;
+        Printer.exportToOutput(p, eState, false,nodesExpanded, totalTime);
         return;
     }
+
+
 
     private int f(BoardState boardState) {
         return boardState.getPaid() + heuristic.getH(boardState);
     }
+
 }

@@ -32,27 +32,26 @@ public class BFS implements Algorithm {
      **/
     public void solve() {
         boolean foundSolution  = false;
-        BoardState cState = sState;
+        BoardState n = sState;
         double startTime, endTime, totalTime; //for time keeping
         startTime = System.currentTimeMillis();
        while(!queue.isEmpty()){
-            cState = queue.poll();
+            n = queue.poll();
             if(p.withOpen()){
-                System.out.println(cState);
+                System.out.println(n);
             }
-            openList.remove(cState);
-            closedList.add(cState);
-           for (Direction direction:Direction.values()) {
-               BoardState child = new BoardState(cState,direction);
-               if(!closedList.contains(child) && !openList.contains(child) && child.isMoved()){
+            openList.remove(n);
+            closedList.add(n);
+           for(BoardState x:n.getAllowedChildrens()){
+               if(!closedList.contains(x) && !openList.contains(x)){
                    nodesExpanded++;
-                   if(child.equals(eState)){
-                       cState = child;
+                   if(x.equals(eState)){
+                       n = x;
                        foundSolution = true;
                        break;
                    }else{
-                       queue.add(child);
-                       openList.add(child);
+                       queue.add(x);
+                       openList.add(x);
                    }
                }
 
@@ -62,7 +61,7 @@ public class BFS implements Algorithm {
        }
         endTime = System.currentTimeMillis();
         totalTime = (endTime - startTime)*1.0/1000;
-        Printer.exportToOutput(p,cState,foundSolution,nodesExpanded,totalTime);
+        Printer.exportToOutput(p,n,foundSolution,nodesExpanded,totalTime);
         }
     }
 
