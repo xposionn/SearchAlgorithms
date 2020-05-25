@@ -18,11 +18,9 @@ public class AStar implements Algorithm {
     private PriorityQueue<BoardState> L;
     private HashMap<BoardState, BoardState> H, C;
     private int minF;
-    private IHeuristic heuristic;
     private Comparator<BoardState> comparator;
 
     public AStar(Problem p, IHeuristic heuristic) {
-        this.heuristic = heuristic;
         L = new PriorityQueue<>((s1, s2) -> {
             if (heuristic.getH(s1) > heuristic.getH(s2))
                 return 1;
@@ -73,13 +71,6 @@ public class AStar implements Algorithm {
         endTime = System.currentTimeMillis();
         totalTime = (endTime - startTime) * 1.0 / 1000;
         Printer.exportToOutput(p, eState, false,nodesExpanded, totalTime);
-        return;
-    }
-
-
-
-    private int f(BoardState boardState) {
-        return boardState.getPaid() + heuristic.getH(boardState);
     }
 
 }
