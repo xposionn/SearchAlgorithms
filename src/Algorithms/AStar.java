@@ -47,6 +47,9 @@ public class AStar implements Algorithm {
         L.add(sState);
         while (!L.isEmpty()) {
             BoardState n = L.poll();
+            if(p.withOpen()){
+                System.out.println(n);
+            }
             H.remove(n);
             if (n.equals(eState)) {
                 endTime = System.currentTimeMillis();

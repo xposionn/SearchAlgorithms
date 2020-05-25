@@ -13,7 +13,9 @@ public class Main {
         Problem p = new Problem();
         p.buildProblemFromFile("input.txt");
         IHeuristic heuristic = new Manhattan(p.getGoalBoard());
-        Algorithm dfid = new AStar(p,heuristic);
-        dfid.solve();
+        Algorithm astar = new AStar(p,heuristic);
+        Algorithm dfid = new DFID(p);
+        Algorithm bfs = new BFS(p);
+        bfs.solve();
     }
 }
