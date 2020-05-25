@@ -22,6 +22,8 @@ public class BoardState {
     private int rows;
     private int columns;
 
+
+
     //for AStar
     private boolean isOut = false;
 
@@ -260,4 +262,13 @@ public class BoardState {
     return allowedMoves;
     }
 
+
+    public int getPriceOfValue(int value){
+        if(colorMap.containsKey(value)){
+            Color color= colorMap.get(value);
+            return colorPrices.get(color);
+        }else{
+            return 1;
+        }
+    }
 }

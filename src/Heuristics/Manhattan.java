@@ -2,6 +2,7 @@ package Heuristics;
 
 import Common.BoardState;
 
+import java.awt.*;
 import java.util.Comparator;
 
 public class Manhattan implements Comparator<BoardState>,IHeuristic {
@@ -37,6 +38,8 @@ public class Manhattan implements Comparator<BoardState>,IHeuristic {
             }
     }
 
+
+    //calculate with colors!!
     @Override
     public int getH(BoardState boardState){
         int h = 0;
@@ -53,7 +56,7 @@ public class Manhattan implements Comparator<BoardState>,IHeuristic {
                 }else{
                     cColumn--;
                 }
-                h+=Math.abs(i-cRow)+Math.abs(j-cColumn);
+                h+=(Math.abs(i-cRow)+Math.abs(j-cColumn))*boardState.getPriceOfValue(value);
             }
         }
         return h;
