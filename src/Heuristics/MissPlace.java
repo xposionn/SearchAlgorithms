@@ -4,9 +4,9 @@ import Common.BoardState;
 
 import java.util.Comparator;
 
-public class EuclideanDistance implements Comparator<BoardState>,IHeuristic {
+public class MissPlace implements Comparator<BoardState>,IHeuristic {
     private BoardState eState;
-    public EuclideanDistance(BoardState eState){
+    public MissPlace(BoardState eState){
         this.eState=eState;
     }
 
@@ -30,16 +30,8 @@ public class EuclideanDistance implements Comparator<BoardState>,IHeuristic {
         int columns = boardState.getColumns();
         for(int i=0;i<rows;++i){
             for(int j=0;j<columns;++j){
-                int value = boardState.getBoard()[i][j];
-                int cRow = value/columns;
-                int cColumn = value%columns;
-                if(cColumn==0){
-                    cColumn = columns-1;
-                    cRow--;
-                }else{
-                    cColumn--;
-                }
-                h+=Math.sqrt(Math.pow((i-cRow),2)+Math.pow((j-cColumn),2))*boardState.getPriceOfValue(value);
+                if(boardState.getBoard()[i][j] != eState.getBoard()[i][j])
+                    h+=boardState.getPriceOfValue(boardState.getBoard()[i][j]);
             }
         }
         return h;

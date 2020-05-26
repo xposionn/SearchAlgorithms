@@ -72,7 +72,6 @@ public class IDAStar implements Algorithm{
                                 }
                             }
                             if(child.equals(eState)){
-                                System.out.println("found solution");
                                 endTime = System.currentTimeMillis();
                                 totalTime = (endTime - startTime)*1.0/1000;
                                 Printer.exportToOutput(p,child,true,nodesExpanded,totalTime);
