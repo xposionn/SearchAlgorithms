@@ -3,11 +3,9 @@ package Algorithms;
 import Common.BoardState;
 import Common.Direction;
 import Common.Problem;
-import Heuristics.IHeuristic;
+import Heuristics.Heuristic;
 import Printers.Printer;
 
-import java.util.Comparator;
-import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.PriorityQueue;
 
@@ -20,10 +18,10 @@ public class IDAStar implements Algorithm{
     private Hashtable<BoardState,BoardState> H;
     private int minF;
     private int t;
-    private IHeuristic heuristic;
+    private Heuristic<BoardState> heuristic;
 
 
-    public IDAStar(Problem p, IHeuristic heuristic){
+    public IDAStar(Problem p, Heuristic heuristic){
         this.p = p;
         this.sState = p.getStartBoard();
         this.eState = p.getGoalBoard();
@@ -56,7 +54,7 @@ public class IDAStar implements Algorithm{
                         BoardState child = new BoardState(n,direction);
                         if(child.isMoved()){
                             nodesExpanded++;
-                            int fOnChild = f(child);
+                            int fOnChild = heuristic.getF(child);
                             if(fOnChild>t){
                                 minF = Math.min(minF,fOnChild);
                                 continue;
@@ -64,7 +62,7 @@ public class IDAStar implements Algorithm{
                             if(H.contains(child) && H.get(child).isOut()){
                                 continue;
                             }if(H.contains(child) && !H.get(child).isOut()){
-                                if(f(H.get(child))>f(child)){
+                                if(heuristic.getF(H.get(child))>heuristic.getF(child)){
                                     H.remove(child);
                                     L.remove(child);
                                 }else{
@@ -90,9 +88,5 @@ public class IDAStar implements Algorithm{
         totalTime = (endTime - startTime)*1.0/1000;
         Printer.exportToOutput(p,eState,false,nodesExpanded,totalTime);
 
-    }
-
-    private int f(BoardState boardState){
-        return boardState.getPaid()+ heuristic.getH(boardState);
     }
 }

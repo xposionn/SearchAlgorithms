@@ -2,7 +2,7 @@ package Algorithms;
 
 import Common.BoardState;
 import Common.Problem;
-import Heuristics.IHeuristic;
+import Heuristics.Heuristic;
 import Printers.Printer;
 
 import java.util.*;
@@ -16,9 +16,9 @@ public class DFBnB implements Algorithm{
     private Stack<BoardState> L;
     private Hashtable<BoardState,BoardState> H;
     private int t;
-    private IHeuristic heuristic;
+    private Heuristic<BoardState> heuristic;
 
-    public DFBnB(Problem p,IHeuristic<BoardState> heuristic)
+    public DFBnB(Problem p,Heuristic heuristic)
     {
         this.p = p;
         this.heuristic = heuristic;

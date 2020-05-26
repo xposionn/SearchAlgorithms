@@ -1,13 +1,11 @@
 package Algorithms;
 
 import Common.BoardState;
-import Common.Direction;
 import Common.Problem;
-import Heuristics.IHeuristic;
+import Heuristics.Heuristic;
 import Printers.Printer;
 
 import java.util.*;
-import java.util.function.Predicate;
 
 public class AStar implements Algorithm {
 
@@ -19,9 +17,9 @@ public class AStar implements Algorithm {
     private HashMap<BoardState, BoardState> H, C;
     private int minF;
     private Comparator<BoardState> comparator;
-    private IHeuristic<BoardState> heuristic;
+    private Heuristic<BoardState> heuristic;
 
-    public AStar(Problem p, IHeuristic heuristic) {
+    public AStar(Problem p, Heuristic heuristic) {
         this.heuristic = heuristic;
         L = new PriorityQueue<>(heuristic::compare);
         H = new HashMap<>();
@@ -67,8 +65,5 @@ public class AStar implements Algorithm {
         Printer.exportToOutput(p, eState, false,nodesExpanded, totalTime);
     }
 
-    private int f(BoardState boardState) {
-        return boardState.getPaid() + heuristic.getH(boardState);
-    }
 
 }

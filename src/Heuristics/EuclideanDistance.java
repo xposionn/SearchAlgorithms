@@ -4,23 +4,11 @@ import Common.BoardState;
 
 import java.util.Comparator;
 
-public class EuclideanDistance implements Comparator<BoardState>,IHeuristic {
+public class EuclideanDistance extends Heuristic {
     private BoardState eState;
     public EuclideanDistance(BoardState eState){
         this.eState=eState;
     }
-
-    @Override
-    public int compare(BoardState s1, BoardState s2) {
-            if(getF(s1)>getF(s2))
-                return 1;
-            if(getF(s1)<getF(s2)){
-                return -1;
-            }else{
-                return 0;
-            }
-    }
-
 
     //calculate with colors!!
     @Override
@@ -44,11 +32,6 @@ public class EuclideanDistance implements Comparator<BoardState>,IHeuristic {
         }
         return h;
 
-    }
-
-    @Override
-    public int getF(BoardState boardState) {
-        return boardState.getPaid()+ getH(boardState);
     }
 
 }
