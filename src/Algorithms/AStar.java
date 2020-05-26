@@ -23,15 +23,7 @@ public class AStar implements Algorithm {
 
     public AStar(Problem p, IHeuristic heuristic) {
         this.heuristic = heuristic;
-        L = new PriorityQueue<>((s1, s2) -> {
-            if (f(s1) > f(s2))
-                return 1;
-            if (f(s1) < f(s2)) {
-                return -1;
-            } else {
-                return 0;
-            }
-        });
+        L = new PriorityQueue<>(heuristic::compare);
         H = new HashMap<>();
         C = new HashMap<>();
         sState = p.getStartBoard();

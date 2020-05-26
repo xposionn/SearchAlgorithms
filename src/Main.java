@@ -15,7 +15,8 @@ public class Main {
         IHeuristic heuristic = new Manhattan(p.getGoalBoard());
         Algorithm astar = new AStar(p,heuristic);
         Algorithm dfid = new DFID(p);
+        Algorithm idastar = new IDAStar(p,heuristic);
         Algorithm bfs = new BFS(p);
-        bfs.solve();
+        dfid.solve();
     }
 }

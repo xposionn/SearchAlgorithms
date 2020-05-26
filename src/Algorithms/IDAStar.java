@@ -23,21 +23,13 @@ public class IDAStar implements Algorithm{
     private IHeuristic heuristic;
 
 
-    public IDAStar(Problem p, Comparator<BoardState> comparator, IHeuristic heuristic){
+    public IDAStar(Problem p, IHeuristic heuristic){
         this.p = p;
         this.sState = p.getStartBoard();
         this.eState = p.getGoalBoard();
         this.heuristic = heuristic;
         this.t = heuristic.getH(sState);
-        L = new PriorityQueue<>((t1, t2) -> {
-            if(f(t1)>f(t2))
-                return 1;
-            if(f(t1)<f(t2)){
-                return -1;
-            }else{
-                return 0;
-            }
-        });
+        L = new PriorityQueue<>(heuristic::compare);
         H = new Hashtable<BoardState,BoardState>();
     }
 
