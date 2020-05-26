@@ -11,12 +11,15 @@ public class Main {
 
         //Heuristics
         Heuristic manhattan = new Manhattan(p.getGoalBoard());
+        Heuristic MissPlace = new MissPlace(p.getGoalBoard());
+        Heuristic EuclideanDistance = new EuclideanDistance(p.getGoalBoard());
 
 
         Algorithm astar = new AStar(p, manhattan);
         Algorithm dfid = new DFID(p);
+        Algorithm dfbnb = new DFBnB(p,manhattan);
         Algorithm idastar = new IDAStar(p,manhattan);
         Algorithm bfs = new BFS(p);
-        idastar.solve();
+        astar.solve();
     }
 }
