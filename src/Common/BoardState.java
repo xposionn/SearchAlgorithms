@@ -6,7 +6,6 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.stream.Stream;
 
 public class BoardState {
     private int[][] board;
@@ -21,6 +20,7 @@ public class BoardState {
     private int paid = 0;
     private int rows;
     private int columns;
+    private Direction direction;
 
 
 
@@ -94,29 +94,32 @@ public class BoardState {
             case DOWN:
                 if (spacePositionRow > 0){
                     int value = board[spacePositionRow-1][spacePositionColumn];
-                    if(isAllowedToBeMoved(value)) {
-
+                    if(isAllowedToBeMoved(value,direction)) {
+                        this.direction = Direction.DOWN;
                         movement = value + "D";
                         board[spacePositionRow][spacePositionColumn] = board[spacePositionRow - 1][spacePositionColumn];
                         spacePositionRow--;
                         board[spacePositionRow][spacePositionColumn] = 0;
-                        this.isMoved = true;
                         int cost = (colorMap.get(value) == null) ? 1 : colorPrices.get(colorMap.get(value));
                         paid += cost;
+                        checkMovement();
+
                     }
                 }
                 break;
             case UP:
                 if (spacePositionRow < board.length-1){
                     int value = board[spacePositionRow+1][spacePositionColumn];
-                    if(isAllowedToBeMoved(value)) {
+                    if(isAllowedToBeMoved(value, direction)) {
+                        this.direction = Direction.UP;
                         movement = value + "U";
                         board[spacePositionRow][spacePositionColumn] = board[spacePositionRow + 1][spacePositionColumn];
                         spacePositionRow++;
                         board[spacePositionRow][spacePositionColumn] = 0;
-                        this.isMoved = true;
                         int cost = (colorMap.get(value) == null) ? 1 : colorPrices.get(colorMap.get(value));
                         paid += cost;
+                        checkMovement();
+
                     }
 
 
@@ -125,14 +128,16 @@ public class BoardState {
             case RIGHT:
                 if (spacePositionColumn > 0){
                     int value = board[spacePositionRow][spacePositionColumn-1];
-                    if(isAllowedToBeMoved(value)) {
+                    if(isAllowedToBeMoved(value, direction)) {
+                        this.direction = Direction.UP;
                         movement = value + "R";
                         board[spacePositionRow][spacePositionColumn] = board[spacePositionRow][spacePositionColumn - 1];
                         spacePositionColumn--;
                         board[spacePositionRow][spacePositionColumn] = 0;
-                        this.isMoved = true;
                         int cost = (colorMap.get(value) == null) ? 1 : colorPrices.get(colorMap.get(value));
                         paid += cost;
+                        checkMovement();
+
                     }
 
 
@@ -141,24 +146,39 @@ public class BoardState {
             case LEFT:
                 if (spacePositionColumn < board[0].length-1){
                     int value = board[spacePositionRow][spacePositionColumn+1];
-                    if(isAllowedToBeMoved(value)) {
-
+                    if(isAllowedToBeMoved(value, direction)) {
+                        this.direction = Direction.LEFT;
                         movement = value + "L";
                         board[spacePositionRow][spacePositionColumn] = board[spacePositionRow][spacePositionColumn + 1];
                         spacePositionColumn++;
                         board[spacePositionRow][spacePositionColumn] = 0;
-                        this.isMoved = true;
                         int cost = (colorMap.get(value) == null) ? 1 : colorPrices.get(colorMap.get(value));
                         paid += cost;
+                        checkMovement();
                     }
                 }
                 break;
         }
     }
 
-    private boolean isAllowedToBeMoved(int value) {
+    private void checkMovement() {
+        if(!this.equals(parent))
+            this.isMoved = true;
+    }
+
+    private boolean isAllowedToBeMoved(int value, Direction direction) {
         Color color = colorMap.get(value);
-        return Color.BLACK != color;
+        boolean isNotPrevMove = true;
+        if(parent!=null){
+            Direction parentDirection = parent.getDirection();
+            if(parentDirection!=null){
+                if(Math.abs(parentDirection.ordinal()-direction.ordinal()) != 2)
+                    isNotPrevMove = true;
+            }else{
+                isNotPrevMove=true;
+            }
+        }
+        return Color.BLACK != color && isNotPrevMove;
     }
 
     public int getDepth() {
@@ -183,7 +203,16 @@ public class BoardState {
 
     @Override
     public int hashCode() {
-        return 1;
+        int[] primes = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113, 127};
+        int k=0;
+        int hash =0;
+        for(int i=0;i<rows;++i){
+            for(int j=0;j<columns;++j){
+                if(board[i][j] == 0) continue;
+                hash*=Math.pow(board[i][j],primes[k++]);
+            }
+        }
+        return hash;
     }
 
     public void setColors(HashMap<Color, Integer> colorPrices, HashMap<Integer, Color> colorMap) {
@@ -270,5 +299,9 @@ public class BoardState {
         }else{
             return 1;
         }
+    }
+
+    public Direction getDirection() {
+        return direction;
     }
 }

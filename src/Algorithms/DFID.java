@@ -1,17 +1,12 @@
 package Algorithms;
 
 import Common.BoardState;
-import Common.Direction;
 import Common.Problem;
-import Printers.Printer;
 
 import java.util.HashSet;
 
-public class DFID implements Algorithm{
+public class DFID extends Algorithm {
     private HashSet<BoardState> H;
-    private Problem p;
-    private BoardState sState, eState; //start and goal states
-    private int nodesExpanded = 1; //number of nodes explored first included
     private double totalTime;
 
     public DFID(Problem p){
@@ -35,7 +30,8 @@ public class DFID implements Algorithm{
     public String Limited_DFS(BoardState currentState, BoardState eState, int limit, HashSet H){
         if(currentState.equals(eState)){
             totalTime = (System.currentTimeMillis() - totalTime)/1000;
-            Printer.exportToOutput(p,currentState,true,nodesExpanded,totalTime);
+            foundSolution = true;
+            finish(currentState,totalTime);
             return "found";
         }else if(limit == 0){
             return "cut off";
