@@ -41,9 +41,11 @@ public class DFID implements Algorithm{
             return "cut off";
         }else{
             H.add(currentState);
+            if(p.withOpen()){
+                System.out.println(currentState);
+            }
             boolean isCufOff = false;
-            for(Direction direction:Direction.values()){
-                BoardState child = new BoardState(currentState,direction);
+            for(BoardState child:currentState.getAllowedChildrens()){
                 if(H.contains(child)){
                     continue;
                 }

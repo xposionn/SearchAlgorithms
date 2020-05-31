@@ -1,8 +1,8 @@
 package Common;
 
 import Algorithms.Algorithm;
-import javafx.scene.paint.Color;
 
+import java.awt.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
