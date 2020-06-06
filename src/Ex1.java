@@ -3,11 +3,11 @@ import Common.Problem;
 import Heuristics.*;
 
 
-public class Main {
+public class Ex1 {
 
     public static void main(String[] args) {
         Problem p = new Problem();
-        p.buildProblemFromFile("input5.txt");
+        p.buildProblemFromFile("input.txt");
         p.solve();
     }
 }
