@@ -1,9 +1,3 @@
-package Algorithms;
-
-import Common.BoardState;
-import Common.Problem;
-import Heuristics.Heuristic;
-
 import java.util.*;
 
 public class AStar extends Algorithm {

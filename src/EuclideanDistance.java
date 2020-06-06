@@ -1,9 +1,3 @@
-package Heuristics;
-
-import Common.BoardState;
-
-import java.util.Comparator;
-
 public class EuclideanDistance extends Heuristic {
     private BoardState eState;
     public EuclideanDistance(BoardState eState){

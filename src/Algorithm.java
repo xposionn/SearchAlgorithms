@@ -1,9 +1,3 @@
-package Algorithms;
-
-import Common.BoardState;
-import Common.Problem;
-import Printers.Printer;
-
 public  abstract class Algorithm {
 
     protected Problem p;

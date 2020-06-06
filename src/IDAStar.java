@@ -1,12 +1,4 @@
-package Algorithms;
-
-import Common.BoardState;
-import Common.Direction;
-import Common.Problem;
-import Heuristics.Heuristic;
-
 import java.util.Hashtable;
-import java.util.PriorityQueue;
 import java.util.Stack;
 
 public class IDAStar extends Algorithm {

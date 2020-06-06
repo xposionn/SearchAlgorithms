@@ -1,7 +1,3 @@
-package Heuristics;
-
-import Common.BoardState;
-
 public class PairsAnomaly extends Heuristic {
     private BoardState eState;
     public PairsAnomaly(BoardState eState){

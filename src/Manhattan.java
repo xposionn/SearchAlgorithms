@@ -1,9 +1,3 @@
-package Heuristics;
-
-import Common.BoardState;
-
-import java.util.Comparator;
-
 public class Manhattan extends Heuristic {
     private BoardState eState;
     public Manhattan(BoardState eState){

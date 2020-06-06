@@ -1,7 +1,3 @@
-package Heuristics;
-
-import Common.BoardState;
-
 import java.util.Comparator;
 
 public abstract class Heuristic<T> implements Comparator<BoardState> {

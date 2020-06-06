@@ -1,8 +1,3 @@
-package Printers;
-
-import Common.BoardState;
-import Common.Problem;
-
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;

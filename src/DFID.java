@@ -1,8 +1,3 @@
-package Algorithms;
-
-import Common.BoardState;
-import Common.Problem;
-
 import java.util.HashSet;
 
 public class DFID extends Algorithm {

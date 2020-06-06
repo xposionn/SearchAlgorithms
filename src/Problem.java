@@ -1,10 +1,3 @@
-package Common;
-
-import Algorithms.*;
-import Heuristics.Heuristic;
-import Heuristics.Manhattan;
-import Heuristics.PairsAnomaly;
-
 import java.awt.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
