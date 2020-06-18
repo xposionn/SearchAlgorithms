@@ -38,15 +38,18 @@ public class AStar extends Algorithm {
                 return;
             }
             C.put(n, n);
-            for(BoardState x:n.getAllowedChildrens()){
-                nodesExpanded++;
-                if(!C.containsKey(x) && !L.contains(x)){
-                    L.add(x);
-                    H.put(x,x);
-                }else if(L.contains(x) && H.get(x)!=null && H.get(x).getPaid()>x.getPaid()){
-                    L.remove(x);
-                    L.add(x);
-                    H.put(x,x);
+            for (Direction direction:Direction.values()) {
+                BoardState child = new BoardState(n,direction);
+                if (child.isMoved()) {
+                    nodesExpanded++;
+                    if (!C.containsKey(child) && !L.contains(child)) {
+                        L.add(child);
+                        H.put(child, child);
+                    } else if (L.contains(child) && H.get(child) != null && H.get(child).getPaid() > child.getPaid()) {
+                        L.remove(child);
+                        L.add(child);
+                        H.put(child, child);
+                    }
                 }
             }
         }

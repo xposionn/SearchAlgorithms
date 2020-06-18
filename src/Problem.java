@@ -108,16 +108,16 @@ public class Problem {
                 this.algorithm = new BFS(this);
                 break;
             case "A*":
-                this.algorithm = new AStar(this, new PairsAnomaly(getGoalBoard()));
+                this.algorithm = new AStar(this, new Manhattan(getGoalBoard()));
                 break;
             case "IDA*":
-                this.algorithm = new IDAStar(this, new PairsAnomaly(getGoalBoard()));
+                this.algorithm = new IDAStar(this, new Manhattan(getGoalBoard()));
                 break;
             case "DFID":
                 this.algorithm = new DFID(this);
                 break;
             case "DFBnB":
-                this.algorithm = new DFBnB(this, new PairsAnomaly(getGoalBoard()));
+                this.algorithm = new DFBnB(this, new Manhattan(getGoalBoard()));
                 break;
         }
     }

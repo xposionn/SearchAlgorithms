@@ -1,6 +1,6 @@
-BFS
-with time
-with open
+IDA*
+no time
+no open
 3x4
 Black:
 Red: 11

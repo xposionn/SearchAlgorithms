@@ -89,7 +89,7 @@ public class BoardState {
             case DOWN:
                 if (spacePositionRow > 0){
                     int value = board[spacePositionRow-1][spacePositionColumn];
-                    if(isAllowedToBeMoved(value,direction)) {
+//                    if(isAllowedToBeMoved(value,direction)) {
                         this.direction = Direction.DOWN;
                         movement = value + "D";
                         board[spacePositionRow][spacePositionColumn] = board[spacePositionRow - 1][spacePositionColumn];
@@ -97,15 +97,14 @@ public class BoardState {
                         board[spacePositionRow][spacePositionColumn] = 0;
                         int cost = (colorMap.get(value) == null) ? 1 : colorPrices.get(colorMap.get(value));
                         paid += cost;
-                        checkMovement();
-
-                    }
+                        checkMovement(value);
+//                    }
                 }
                 break;
             case UP:
                 if (spacePositionRow < board.length-1){
                     int value = board[spacePositionRow+1][spacePositionColumn];
-                    if(isAllowedToBeMoved(value, direction)) {
+//                    if(isAllowedToBeMoved(value, direction)) {
                         this.direction = Direction.UP;
                         movement = value + "U";
                         board[spacePositionRow][spacePositionColumn] = board[spacePositionRow + 1][spacePositionColumn];
@@ -113,17 +112,14 @@ public class BoardState {
                         board[spacePositionRow][spacePositionColumn] = 0;
                         int cost = (colorMap.get(value) == null) ? 1 : colorPrices.get(colorMap.get(value));
                         paid += cost;
-                        checkMovement();
-
-                    }
-
-
+                        checkMovement(value);
+//                    }
                 }
                 break;
             case RIGHT:
                 if (spacePositionColumn > 0){
                     int value = board[spacePositionRow][spacePositionColumn-1];
-                    if(isAllowedToBeMoved(value, direction)) {
+//                    if(isAllowedToBeMoved(value, direction)) {
                         this.direction = Direction.UP;
                         movement = value + "R";
                         board[spacePositionRow][spacePositionColumn] = board[spacePositionRow][spacePositionColumn - 1];
@@ -131,9 +127,10 @@ public class BoardState {
                         board[spacePositionRow][spacePositionColumn] = 0;
                         int cost = (colorMap.get(value) == null) ? 1 : colorPrices.get(colorMap.get(value));
                         paid += cost;
-                        checkMovement();
+                    checkMovement(value);
 
-                    }
+
+//                    }
 
 
                 }
@@ -141,7 +138,7 @@ public class BoardState {
             case LEFT:
                 if (spacePositionColumn < board[0].length-1){
                     int value = board[spacePositionRow][spacePositionColumn+1];
-                    if(isAllowedToBeMoved(value, direction)) {
+//                    if(isAllowedToBeMoved(value, direction)) {
                         this.direction = Direction.LEFT;
                         movement = value + "L";
                         board[spacePositionRow][spacePositionColumn] = board[spacePositionRow][spacePositionColumn + 1];
@@ -149,16 +146,18 @@ public class BoardState {
                         board[spacePositionRow][spacePositionColumn] = 0;
                         int cost = (colorMap.get(value) == null) ? 1 : colorPrices.get(colorMap.get(value));
                         paid += cost;
-                        checkMovement();
-                    }
+                    checkMovement(value);
+
+//                    }
                 }
                 break;
         }
     }
 
-    private void checkMovement() {
+    private void checkMovement(int value) {
+        Color color = colorMap.get(value);
         if(!this.equals(parent))
-            this.isMoved = true;
+            this.isMoved = Color.BLACK != color;
     }
 
     private boolean isAllowedToBeMoved(int value, Direction direction) {
@@ -224,7 +223,7 @@ public class BoardState {
     }
 
     public boolean isMoved() {
-        return isMoved;
+        return isMoved && (parent==null || !this.equals(parent.getParent())) ;
     }
 
     @Override

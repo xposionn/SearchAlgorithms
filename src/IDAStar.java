@@ -39,10 +39,8 @@ public class IDAStar extends Algorithm {
                     n.isOut(true);
                     L.add(n);
 
-                    //TODO: iterate each instead of taking all children.
-//                    for (Direction direction:Direction.values()) {
-                    for (BoardState child:n.getAllowedChildrens()) {
-//                        BoardState child = new BoardState(n,direction);
+                    for (Direction direction:Direction.values()) {
+                        BoardState child = new BoardState(n,direction);
                         if (child.isMoved()) {
                             nodesExpanded++;
                             int fOnChild = heuristic.getF(child);

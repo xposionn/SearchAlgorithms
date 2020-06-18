@@ -41,7 +41,6 @@ public class DFBnB extends Algorithm {
                 ArrayList<BoardState> copyAllChilds = new ArrayList<>(allChilds);
                 nodesExpanded +=copyAllChilds.size();
                 for (BoardState child : copyAllChilds) {
-                    //TODO: create one by one.
                     if (heuristic.getF(child) >= t) {
                         //delete everyone after him. include him
                         for (BoardState children : copyAllChilds) {
