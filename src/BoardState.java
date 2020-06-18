@@ -95,8 +95,10 @@ public class BoardState {
                         board[spacePositionRow][spacePositionColumn] = board[spacePositionRow - 1][spacePositionColumn];
                         spacePositionRow--;
                         board[spacePositionRow][spacePositionColumn] = 0;
+                    if(colorMap.get(value) != null && colorMap.get(value) != Color.BLACK) {
                         int cost = (colorMap.get(value) == null) ? 1 : colorPrices.get(colorMap.get(value));
                         paid += cost;
+                    }
                         checkMovement(value);
 //                    }
                 }
@@ -110,8 +112,10 @@ public class BoardState {
                         board[spacePositionRow][spacePositionColumn] = board[spacePositionRow + 1][spacePositionColumn];
                         spacePositionRow++;
                         board[spacePositionRow][spacePositionColumn] = 0;
+                    if(colorMap.get(value) != null && colorMap.get(value) != Color.BLACK) {
                         int cost = (colorMap.get(value) == null) ? 1 : colorPrices.get(colorMap.get(value));
                         paid += cost;
+                    }
                         checkMovement(value);
 //                    }
                 }
@@ -125,8 +129,10 @@ public class BoardState {
                         board[spacePositionRow][spacePositionColumn] = board[spacePositionRow][spacePositionColumn - 1];
                         spacePositionColumn--;
                         board[spacePositionRow][spacePositionColumn] = 0;
-                        int cost = (colorMap.get(value) == null) ? 1 : colorPrices.get(colorMap.get(value));
-                        paid += cost;
+                        if(colorMap.get(value) != null && colorMap.get(value) != Color.BLACK) {
+                            int cost = (colorMap.get(value) == null) ? 1 : colorPrices.get(colorMap.get(value));
+                            paid += cost;
+                        }
                     checkMovement(value);
 
 
@@ -144,8 +150,10 @@ public class BoardState {
                         board[spacePositionRow][spacePositionColumn] = board[spacePositionRow][spacePositionColumn + 1];
                         spacePositionColumn++;
                         board[spacePositionRow][spacePositionColumn] = 0;
+                    if(colorMap.get(value) != null && colorMap.get(value) != Color.BLACK) {
                         int cost = (colorMap.get(value) == null) ? 1 : colorPrices.get(colorMap.get(value));
                         paid += cost;
+                    }
                     checkMovement(value);
 
 //                    }
