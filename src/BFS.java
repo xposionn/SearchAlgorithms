@@ -34,7 +34,6 @@ public class BFS extends Algorithm {
            for (Direction d : Direction.values()) {
                BoardState x = new BoardState(n,d);
                if(x.isMoved()){
-
                if (!closedList.contains(x) && !openList.contains(x)) {
                    nodesExpanded++;
                    if (x.equals(eState)) {
