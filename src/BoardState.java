@@ -18,7 +18,6 @@ public class BoardState {
     private Direction direction;
 
 
-
     //for AStar
     private boolean isOut = false;
 
@@ -45,13 +44,12 @@ public class BoardState {
         this.depth = b.depth;
         this.parent = b;
         this.depth++;
-        this.paid=b.paid;
+        this.paid = b.paid;
         this.colorMap = b.colorMap;
         this.colorPrices = b.colorPrices;
         this.moveSpace(d);
 
     }
-
 
 
     public void setRow(int i, String line) {
@@ -60,7 +58,7 @@ public class BoardState {
             int value = 0;
             if (!split[j].equals("_")) {
                 value = Integer.parseInt(split[j]);
-            }else{
+            } else {
                 spacePositionRow = i;
                 spacePositionColumn = j;
             }
@@ -87,76 +85,69 @@ public class BoardState {
     public void moveSpace(Direction direction) {
         switch (direction) {
             case DOWN:
-                if (spacePositionRow > 0){
-                    int value = board[spacePositionRow-1][spacePositionColumn];
-//                    if(isAllowedToBeMoved(value,direction)) {
-                        this.direction = Direction.DOWN;
-                        movement = value + "D";
-                        board[spacePositionRow][spacePositionColumn] = board[spacePositionRow - 1][spacePositionColumn];
-                        spacePositionRow--;
-                        board[spacePositionRow][spacePositionColumn] = 0;
-                    if(colorMap.get(value) != null && colorMap.get(value) != Color.BLACK) {
+                if (spacePositionRow > 0) {
+                    int value = board[spacePositionRow - 1][spacePositionColumn];
+                    this.direction = Direction.DOWN;
+                    movement = value + "D";
+                    board[spacePositionRow][spacePositionColumn] = board[spacePositionRow - 1][spacePositionColumn];
+                    spacePositionRow--;
+                    board[spacePositionRow][spacePositionColumn] = 0;
+
+                    checkMovement(value);
+                    if (isMoved) {
                         int cost = (colorMap.get(value) == null) ? 1 : colorPrices.get(colorMap.get(value));
                         paid += cost;
                     }
-                        checkMovement(value);
-//                    }
                 }
                 break;
             case UP:
-                if (spacePositionRow < board.length-1){
-                    int value = board[spacePositionRow+1][spacePositionColumn];
-//                    if(isAllowedToBeMoved(value, direction)) {
-                        this.direction = Direction.UP;
-                        movement = value + "U";
-                        board[spacePositionRow][spacePositionColumn] = board[spacePositionRow + 1][spacePositionColumn];
-                        spacePositionRow++;
-                        board[spacePositionRow][spacePositionColumn] = 0;
-                    if(colorMap.get(value) != null && colorMap.get(value) != Color.BLACK) {
+                if (spacePositionRow < board.length - 1) {
+                    int value = board[spacePositionRow + 1][spacePositionColumn];
+                    this.direction = Direction.UP;
+                    movement = value + "U";
+                    board[spacePositionRow][spacePositionColumn] = board[spacePositionRow + 1][spacePositionColumn];
+                    spacePositionRow++;
+                    board[spacePositionRow][spacePositionColumn] = 0;
+
+                    checkMovement(value);
+                    if (isMoved) {
                         int cost = (colorMap.get(value) == null) ? 1 : colorPrices.get(colorMap.get(value));
                         paid += cost;
                     }
-                        checkMovement(value);
-//                    }
                 }
                 break;
             case RIGHT:
-                if (spacePositionColumn > 0){
-                    int value = board[spacePositionRow][spacePositionColumn-1];
-//                    if(isAllowedToBeMoved(value, direction)) {
-                        this.direction = Direction.UP;
-                        movement = value + "R";
-                        board[spacePositionRow][spacePositionColumn] = board[spacePositionRow][spacePositionColumn - 1];
-                        spacePositionColumn--;
-                        board[spacePositionRow][spacePositionColumn] = 0;
-                        if(colorMap.get(value) != null && colorMap.get(value) != Color.BLACK) {
-                            int cost = (colorMap.get(value) == null) ? 1 : colorPrices.get(colorMap.get(value));
-                            paid += cost;
-                        }
+                if (spacePositionColumn > 0) {
+                    int value = board[spacePositionRow][spacePositionColumn - 1];
+                    this.direction = Direction.UP;
+                    movement = value + "R";
+                    board[spacePositionRow][spacePositionColumn] = board[spacePositionRow][spacePositionColumn - 1];
+                    spacePositionColumn--;
+                    board[spacePositionRow][spacePositionColumn] = 0;
                     checkMovement(value);
+                    if (isMoved) {
+                        int cost = (colorMap.get(value) == null) ? 1 : colorPrices.get(colorMap.get(value));
+                        paid += cost;
+                    }
 
-
-//                    }
 
 
                 }
                 break;
             case LEFT:
-                if (spacePositionColumn < board[0].length-1){
-                    int value = board[spacePositionRow][spacePositionColumn+1];
-//                    if(isAllowedToBeMoved(value, direction)) {
-                        this.direction = Direction.LEFT;
-                        movement = value + "L";
-                        board[spacePositionRow][spacePositionColumn] = board[spacePositionRow][spacePositionColumn + 1];
-                        spacePositionColumn++;
-                        board[spacePositionRow][spacePositionColumn] = 0;
-                    if(colorMap.get(value) != null && colorMap.get(value) != Color.BLACK) {
+                if (spacePositionColumn < board[0].length - 1) {
+                    int value = board[spacePositionRow][spacePositionColumn + 1];
+                    this.direction = Direction.LEFT;
+                    movement = value + "L";
+                    board[spacePositionRow][spacePositionColumn] = board[spacePositionRow][spacePositionColumn + 1];
+                    spacePositionColumn++;
+                    board[spacePositionRow][spacePositionColumn] = 0;
+
+                    checkMovement(value);
+                    if (isMoved) {
                         int cost = (colorMap.get(value) == null) ? 1 : colorPrices.get(colorMap.get(value));
                         paid += cost;
                     }
-                    checkMovement(value);
-
-//                    }
                 }
                 break;
         }
@@ -164,24 +155,10 @@ public class BoardState {
 
     private void checkMovement(int value) {
         Color color = colorMap.get(value);
-        if(!this.equals(parent))
+        if (!this.equals(parent))
             this.isMoved = Color.BLACK != color;
     }
 
-    private boolean isAllowedToBeMoved(int value, Direction direction) {
-        Color color = colorMap.get(value);
-        boolean isNotPrevMove = true;
-        if(parent!=null){
-            Direction parentDirection = parent.getDirection();
-            if(parentDirection!=null){
-                if(Math.abs(parentDirection.ordinal()-direction.ordinal()) != 2)
-                    isNotPrevMove = true;
-            }else{
-                isNotPrevMove=true;
-            }
-        }
-        return Color.BLACK != color && isNotPrevMove;
-    }
 
     public int getDepth() {
         return depth;
@@ -206,12 +183,12 @@ public class BoardState {
     @Override
     public int hashCode() {
         int[] primes = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113, 127};
-        int k=0;
-        int hash =0;
-        for(int i=0;i<rows;++i){
-            for(int j=0;j<columns;++j){
-                if(board[i][j] == 0) continue;
-                hash*=Math.pow(board[i][j],primes[k++]);
+        int k = 0;
+        int hash = 0;
+        for (int i = 0; i < rows; ++i) {
+            for (int j = 0; j < columns; ++j) {
+                if (board[i][j] == 0) continue;
+                hash *= Math.pow(board[i][j], primes[k++]);
             }
         }
         return hash;
@@ -226,12 +203,12 @@ public class BoardState {
         return parent;
     }
 
-    public String getMovement(){
+    public String getMovement() {
         return movement;
     }
 
     public boolean isMoved() {
-        return isMoved && (parent==null || !this.equals(parent.getParent())) ;
+        return isMoved && (parent == null || !this.equals(parent.getParent()));
     }
 
     @Override
@@ -265,40 +242,40 @@ public class BoardState {
 
     public int getH() {
         int h = 0;
-        for(int i=0;i<rows;++i){
-            for(int j=0;j<columns;++j){
+        for (int i = 0; i < rows; ++i) {
+            for (int j = 0; j < columns; ++j) {
                 int value = board[i][j];
-                int cRow = value/columns;
-                int cColumn = value%columns;
-                if(cColumn==0){
-                    cColumn = columns-1;
+                int cRow = value / columns;
+                int cColumn = value % columns;
+                if (cColumn == 0) {
+                    cColumn = columns - 1;
                     cRow--;
-                }else{
+                } else {
                     cColumn--;
                 }
-                h+=Math.abs(i-cRow)+Math.abs(j-cColumn);
+                h += Math.abs(i - cRow) + Math.abs(j - cColumn);
             }
         }
         return h;
     }
 
-    public ArrayList<BoardState> getAllowedChildrens(){
+    public ArrayList<BoardState> getAllowedChildrens() {
         ArrayList<BoardState> allowedMoves = new ArrayList<>();
-        for(Direction direction:Direction.values()){
-            BoardState possibleChild = new BoardState(this,direction);
-            if(possibleChild.isMoved() && !possibleChild.equals(parent)){
+        for (Direction direction : Direction.values()) {
+            BoardState possibleChild = new BoardState(this, direction);
+            if (possibleChild.isMoved() && !possibleChild.equals(parent)) {
                 allowedMoves.add(possibleChild);
             }
         }
-    return allowedMoves;
+        return allowedMoves;
     }
 
 
-    public int getPriceOfValue(int value){
-        if(colorMap.containsKey(value)){
-            Color color= colorMap.get(value);
+    public int getPriceOfValue(int value) {
+        if (colorMap.containsKey(value)) {
+            Color color = colorMap.get(value);
             return colorPrices.get(color);
-        }else{
+        } else {
             return 1;
         }
     }

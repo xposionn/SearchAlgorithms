@@ -31,6 +31,7 @@ public class Problem {
             setSizeOfBoard(bufferedReader.readLine());
             setBlackColors(bufferedReader.readLine());
             setRedColors(bufferedReader.readLine());
+
             startBoard.setColors(colorPrices, colorMap);
             line = bufferedReader.readLine();
             int row = 0;
