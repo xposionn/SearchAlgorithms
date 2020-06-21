@@ -1,11 +1,14 @@
+/**
+ * This Class represent a heuristic function.
+ */
 public class Manhattan extends Heuristic {
     private BoardState eState;
+
     public Manhattan(BoardState eState){
         this.eState=eState;
     }
 
 
-    //calculate with colors!!
     @Override
     public int getH(BoardState boardState){
         int h = 0;

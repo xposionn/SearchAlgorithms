@@ -1,5 +1,9 @@
 import java.util.Comparator;
 
+/**
+ * This abstract class represent an abstract of heuristic function.
+ * @param <T>
+ */
 public abstract class Heuristic<T> implements Comparator<BoardState> {
 
     public int compare(BoardState s1, BoardState s2) {

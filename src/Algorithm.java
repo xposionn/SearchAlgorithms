@@ -1,3 +1,6 @@
+/**
+ * This abstract class represents an Algorithm
+ */
 public  abstract class Algorithm {
 
     protected Problem p;

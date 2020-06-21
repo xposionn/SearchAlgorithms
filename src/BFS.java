@@ -1,7 +1,10 @@
 import java.util.HashSet;
 import java.util.concurrent.LinkedBlockingQueue;
-
+/**
+ * BFS Algorithm implementation
+ */
 public class BFS extends Algorithm {
+    //Private variables
     private HashSet<BoardState> closedList,openList; //list of explored nodes
     private LinkedBlockingQueue<BoardState> queue; //list of nodes to explore
 

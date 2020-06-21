@@ -1,7 +1,10 @@
 import java.util.*;
 
+/**
+ * A* Algorithm implementation
+ */
 public class AStar extends Algorithm {
-
+    //Private variables
     private PriorityQueue<BoardState> L;
     private HashMap<BoardState, BoardState> H, C;
     private int minF;
@@ -19,6 +22,9 @@ public class AStar extends Algorithm {
     }
 
 
+    /**
+     * Solve method, to solve a given problem
+     */
     @Override
     public void solve() {
         double startTime, endTime, totalTime; //for time keeping

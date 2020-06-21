@@ -2,6 +2,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+/**
+ * This class manage all the outputs and the prints that needed to be done.
+ */
 public class Printer {
 
     private static final String OUTPUT_FILE_NAME = "output.txt";

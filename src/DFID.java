@@ -1,5 +1,7 @@
 import java.util.HashSet;
-
+/**
+ * DFID Algorithm implementation
+ */
 public class DFID extends Algorithm {
     private HashSet<BoardState> H;
     private double totalTime;

@@ -1,5 +1,7 @@
 import java.util.*;
-
+/**
+ * DFBnB Algorithm implementation
+ */
 public class DFBnB extends Algorithm {
 
     private Stack<BoardState> L;

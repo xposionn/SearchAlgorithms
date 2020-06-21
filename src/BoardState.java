@@ -2,6 +2,9 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * This class represent a BoardState.
+ */
 public class BoardState {
     private int[][] board;
     private BoardState parent;

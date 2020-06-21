@@ -1,6 +1,8 @@
 import java.util.Hashtable;
 import java.util.Stack;
-
+/**
+ * IDA* Algorithm implementation
+ */
 public class IDAStar extends Algorithm {
     private Stack<BoardState> L;
     private Hashtable<BoardState, BoardState> H;
