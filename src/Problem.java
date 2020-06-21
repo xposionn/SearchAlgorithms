@@ -3,14 +3,22 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
+/**
+ *This class represent a problem that need be solved.
+ */
 
 public class Problem {
+    //Private variables
     private Algorithm algorithm;
     private boolean withOpen;
     private boolean withTime;
+    //Prices HashMap
     private HashMap<Color, Integer> colorPrices;
+    //Colored values HashMap
     private HashMap<Integer, Color> colorMap;
+    //Starting board
     private BoardState startBoard;
+    //Goal board
     private BoardState goalBoard;
     private int spacePositionX;
     private int spacePositionY;
@@ -25,7 +33,7 @@ public class Problem {
         try {
             bufferedReader = new BufferedReader(new FileReader(fileName));
             String algoName = bufferedReader.readLine();
-            String line = null;
+            String line;
             setTime(bufferedReader.readLine());
             setWithOpen(bufferedReader.readLine());
             setSizeOfBoard(bufferedReader.readLine());
@@ -48,6 +56,9 @@ public class Problem {
 
     }
 
+    /**
+     * Build a goal depends on the dimension of the problem
+     */
     private void buildGoal() {
         int rows = goalBoard.getBoard().length;
         int columns = goalBoard.getBoard()[0].length;
@@ -61,6 +72,7 @@ public class Problem {
         goalBoard.setSpaceColumn(columns - 1);
     }
 
+    //Getters & Setters
     private void setRedColors(String readLine) {
         String toSplit = readLine.substring(readLine.indexOf(':') + 1).trim();
         //If array is empty
