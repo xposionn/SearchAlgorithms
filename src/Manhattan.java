@@ -1,9 +1,3 @@
-package Heuristics;
-
-import Common.BoardState;
-
-import java.util.Comparator;
-
 public class Manhattan extends Heuristic {
     private BoardState eState;
     public Manhattan(BoardState eState){
@@ -20,6 +14,8 @@ public class Manhattan extends Heuristic {
         for(int i=0;i<rows;++i){
             for(int j=0;j<columns;++j){
                 int value = boardState.getBoard()[i][j];
+                if(value==0)
+                    continue;
                 int cRow = value/columns;
                 int cColumn = value%columns;
                 if(cColumn==0){

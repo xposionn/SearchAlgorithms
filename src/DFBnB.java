@@ -1,18 +1,7 @@
-package Algorithms;
-
-import Common.BoardState;
-import Common.Problem;
-import Heuristics.Heuristic;
-import Printers.Printer;
-
 import java.util.*;
 
-public class DFBnB implements Algorithm {
+public class DFBnB extends Algorithm {
 
-    private Problem p;
-    private BoardState sState, eState; //start and goal states
-    private int nodesExpanded = 1; //number of nodes explored first included
-    private double totalTime;
     private Stack<BoardState> L;
     private Hashtable<BoardState, BoardState> H;
     private int t;
@@ -39,6 +28,9 @@ public class DFBnB implements Algorithm {
         H.put(start, start);
         while (!L.isEmpty()) {
             BoardState n = L.pop();
+            if(p.withOpen()){
+                System.out.println(n);
+            }
             if (n.isOut()) {
                 H.remove(n);
             } else {
@@ -49,7 +41,6 @@ public class DFBnB implements Algorithm {
                 ArrayList<BoardState> copyAllChilds = new ArrayList<>(allChilds);
                 nodesExpanded +=copyAllChilds.size();
                 for (BoardState child : copyAllChilds) {
-                    //TODO: create one by one.
                     if (heuristic.getF(child) >= t) {
                         //delete everyone after him. include him
                         for (BoardState children : copyAllChilds) {
@@ -67,6 +58,7 @@ public class DFBnB implements Algorithm {
                             H.remove(child);
                         }
                     } else if (child.equals(goal)) {
+                        foundSolution = true;
                         t = heuristic.getF(child);
                         result.clear();
                         resultState = child;
@@ -88,6 +80,6 @@ public class DFBnB implements Algorithm {
         }
         endTime = System.currentTimeMillis();
         totalTime = (endTime - startTime) * 1.0 / 1000;
-        Printer.exportToOutput(p,resultState,nodesExpanded,totalTime);
+        finish(resultState,totalTime);
     }
 }

@@ -1,5 +1,5 @@
-BFS
-with time
+DFID
+no time
 no open
 3x4
 Black:

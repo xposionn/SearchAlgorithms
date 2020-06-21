@@ -1,18 +1,7 @@
-package Algorithms;
-
-import Common.BoardState;
-import Common.Problem;
-import Heuristics.Heuristic;
-import Printers.Printer;
-
 import java.util.*;
 
-public class AStar implements Algorithm {
+public class AStar extends Algorithm {
 
-    private Problem p;
-    private BoardState sState, eState; //start and goal states
-    private int nodesExpanded = 1; //number of nodes explored first included
-    private double totalTime;
     private PriorityQueue<BoardState> L;
     private HashMap<BoardState, BoardState> H, C;
     private int minF;
@@ -44,25 +33,29 @@ public class AStar implements Algorithm {
             if (n.equals(eState)) {
                 endTime = System.currentTimeMillis();
                 totalTime = (endTime - startTime) * 1.0 / 1000;
-                Printer.exportToOutput(p, n, nodesExpanded, totalTime);
+                foundSolution = true;
+                finish(n,totalTime);
                 return;
             }
             C.put(n, n);
-            for(BoardState x:n.getAllowedChildrens()){
-                nodesExpanded++;
-                if(!C.containsKey(x) && !L.contains(x)){
-                    L.add(x);
-                    H.put(x,x);
-                }else if(L.contains(x) && H.get(x).getPaid()>x.getPaid()){
-                    L.remove(x);
-                    L.add(x);
-                    H.put(x,x);
+            for (Direction direction:Direction.values()) {
+                BoardState child = new BoardState(n,direction);
+                if (child.isMoved()) {
+                    nodesExpanded++;
+                    if (!C.containsKey(child) && !L.contains(child)) {
+                        L.add(child);
+                        H.put(child, child);
+                    } else if (L.contains(child) && H.get(child) != null && H.get(child).getPaid() > child.getPaid()) {
+                        L.remove(child);
+                        L.add(child);
+                        H.put(child, child);
+                    }
                 }
             }
         }
         endTime = System.currentTimeMillis();
         totalTime = (endTime - startTime) * 1.0 / 1000;
-        Printer.exportToOutput(p, eState, false,nodesExpanded, totalTime);
+        finish(null,totalTime);
     }
 
 

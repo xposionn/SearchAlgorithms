@@ -1,9 +1,3 @@
-package Heuristics;
-
-import Common.BoardState;
-
-import java.util.Comparator;
-
 public class MissPlace extends Heuristic {
     private BoardState eState;
     public MissPlace(BoardState eState){
