@@ -1,5 +1,5 @@
 A*
-no time
+with time
 no open
 3x4
 Black:

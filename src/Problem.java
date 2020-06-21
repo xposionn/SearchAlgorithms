@@ -22,6 +22,7 @@ public class Problem {
     private BoardState goalBoard;
     private int spacePositionX;
     private int spacePositionY;
+    private int numOfBlack = 0;
 
     public Problem() {
         colorPrices = new HashMap<>();
@@ -93,6 +94,7 @@ public class Problem {
         String[] splitted = toSplit.split(",");
         for (String str : splitted) {
             int value = Integer.parseInt(str);
+            numOfBlack++;
             colorMap.put(value, Color.BLACK);
         }
     }
@@ -149,6 +151,10 @@ public class Problem {
 
     public boolean withTime() {
         return withTime;
+    }
+
+    public int getNumOfBlack() {
+        return numOfBlack;
     }
 
     public void solve() {

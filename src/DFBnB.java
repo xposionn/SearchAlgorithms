@@ -23,6 +23,12 @@ public class DFBnB extends Algorithm {
         BoardState start = p.getStartBoard();
         BoardState goal = p.getGoalBoard();
         int t = Integer.MAX_VALUE;
+        int totalBlocks = p.getStartBoard().getRows() * p.getStartBoard().getColumns();
+        int numOfBlack = p.getNumOfBlack();
+        int totalToLIMIT = totalBlocks - numOfBlack;
+        if (totalToLIMIT <= 12) {
+            t = factorial(totalToLIMIT);
+        }
         ArrayList<BoardState> result = new ArrayList<>();
         L = new Stack<>();
         H = new Hashtable<>();
@@ -30,7 +36,7 @@ public class DFBnB extends Algorithm {
         H.put(start, start);
         while (!L.isEmpty()) {
             BoardState n = L.pop();
-            if(p.withOpen()){
+            if (p.withOpen()) {
                 System.out.println(n);
             }
             if (n.isOut()) {
@@ -41,7 +47,7 @@ public class DFBnB extends Algorithm {
                 ArrayList<BoardState> allChilds = n.getAllowedChildrens();
                 allChilds.sort(heuristic::compare);
                 ArrayList<BoardState> copyAllChilds = new ArrayList<>(allChilds);
-                nodesExpanded +=copyAllChilds.size();
+                nodesExpanded += copyAllChilds.size();
                 for (BoardState child : copyAllChilds) {
                     if (heuristic.getF(child) >= t) {
                         //delete everyone after him. include him
@@ -82,6 +88,15 @@ public class DFBnB extends Algorithm {
         }
         endTime = System.currentTimeMillis();
         totalTime = (endTime - startTime) * 1.0 / 1000;
-        finish(resultState,totalTime);
+        finish(resultState, totalTime);
+    }
+
+    private int factorial(int n) {
+        int fact = 1;
+        for (int i = 1; i <= n; i++) {
+            fact = fact * i;
+        }
+        return fact;
     }
 }
+
